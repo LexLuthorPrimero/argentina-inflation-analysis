@@ -1,0 +1,124 @@
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://argentina-inflation-analysis.streamlit.app)
+
+# 📈 Análisis de Inflación en Argentina
+
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.56+-red.svg)](https://streamlit.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Pipeline ETL + dashboard interactivo para extraer, analizar y visualizar datos de inflación en Argentina desde fuentes oficiales (Banco Mundial, próximamente BCRA e INDEC).
+
+![Dashboard Preview](images/dashboard_preview.png)  
+*(Agregá una captura de pantalla de tu dashboard en `images/dashboard_preview.png`)*
+
+## 🚀 Características
+
+- **Extracción automática** de datos desde la API del Banco Mundial (inflación anual).
+- **Transformación y cálculo** de indicadores clave: inflación acumulada, interanual, promedio histórico.
+- **Dashboard interactivo** con Streamlit: gráficos dinámicos, tablas y métricas.
+- **Código modular** y preparado para agregar nuevas fuentes (BCRA, INDEC).
+- **Listo para desplegar** en la nube (Streamlit Cloud, Render, etc.).
+
+## 🛠️ Tecnologías utilizadas
+
+- **Python 3.13** – Lenguaje principal.
+- **Pandas** – Manipulación y análisis de datos.
+- **Requests** – Consumo de APIs.
+- **Matplotlib & Seaborn** – Visualizaciones estáticas.
+- **Streamlit** – Dashboard interactivo.
+- **Git & GitHub** – Control de versiones.
+
+## 📦 Instalación
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/LexLuthorPrimero/argentina-inflation-analysis.git
+cd argentina-inflation-analysis
+
+# Crear y activar entorno virtual
+python -m venv venv
+source venv/bin/activate   # En Windows: venv\Scripts\activate
+
+# Instalar dependencias
+pip install -e .
+```
+
+## 🖥️ Uso
+
+### 1. Ejecutar el pipeline ETL + análisis
+```bash
+python scripts/run_etl.py      # Extrae datos del Banco Mundial
+python scripts/run_analysis.py  # Calcula indicadores y genera gráfico
+```
+
+### 2. Lanzar el dashboard interactivo
+```bash
+streamlit run dashboard/app.py
+```
+
+Luego abrí tu navegador en `http://localhost:8501`.
+
+## 📊 Ejemplo de salida
+
+**Gráfico de inflación anual generado por `run_analysis.py`:**  
+![Gráfico](reports/inflacion_anual_argentina.png)
+
+**Indicadores calculados (consola):**
+```
+Último año disponible: 2024
+Última inflación anual: 219.88%
+Máximo histórico: 219.88%
+Promedio histórico: 86.29%
+
+Últimos 5 años:
+ year  inflacion_anual  variacion_respecto_anio_anterior
+ 2020        42.015095                        -21.537955
+ 2021        48.409379                         15.219016
+ 2022        72.430758                         49.621333
+ 2023       133.488936                         84.298688
+ 2024       219.883929                         64.720715
+```
+
+## 📁 Estructura del proyecto
+
+```
+argentina-inflation-analysis/
+├── data/                     # Datos crudos y procesados (ignorados por git)
+├── dashboard/                # Aplicación Streamlit
+│   └── app.py
+├── reports/                  # Gráficos generados
+├── scripts/                  # Scripts ejecutables
+│   ├── run_etl.py
+│   └── run_analysis.py
+├── src/                      # Módulos reutilizables
+│   ├── extract/              # Extractores por fuente
+│   ├── transform/            # Limpieza y cálculos
+│   ├── analysis/             # Indicadores
+│   └── utils/                # Configuración y logging
+├── tests/                    # Pruebas unitarias (próximamente)
+├── .env.example              # Variables de entorno (ejemplo)
+├── pyproject.toml            # Dependencias y metadata
+└── README.md
+```
+
+## 🔮 Próximos pasos (mejoras planeadas)
+
+- [ ] Agregar extractor del BCRA (datos mensuales).
+- [ ] Integrar datos del INDEC.
+- [ ] Desplegar dashboard en Streamlit Cloud.
+- [ ] Automatizar actualización diaria con GitHub Actions.
+- [ ] Agregar pruebas unitarias con `pytest`.
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 🙌 Autor
+
+**Lucas (LexLuthorPrimero)**  
+[GitHub](https://github.com/LexLuthorPrimero) | [LinkedIn](https://linkedin.com/in/tuusuario) *(opcional)*
+
+---
+
+⭐ Si te gustó el proyecto, ¡no dudes en darle una estrella en GitHub!
+
