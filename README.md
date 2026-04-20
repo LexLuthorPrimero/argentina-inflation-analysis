@@ -1,4 +1,4 @@
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://argentina-inflation-analysis.streamlit.app)
+[![Open in Streamlit]https://argentina-inflation-analysis-gqbzvy2fjksctot5qd6vvd.streamlit.app/
 
 # 📈 Análisis de Inflación en Argentina
 
