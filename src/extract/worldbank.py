@@ -4,6 +4,7 @@ from src.utils.logging import setup_logger
 
 logger = setup_logger(__name__)
 
+
 def extract_inflation_worldbank(country="AR", start=2000, end=2025):
     logger.info(f"Extrayendo datos del Banco Mundial para {country} ({start}-{end})")
     url = f"http://api.worldbank.org/v2/country/{country}/indicator/FP.CPI.TOTL.ZG"
@@ -16,7 +17,9 @@ def extract_inflation_worldbank(country="AR", start=2000, end=2025):
         rows = []
         for item in records:
             if item["value"] is not None:
-                rows.append({"year": int(item["date"]), "inflacion_anual": float(item["value"])})
+                rows.append(
+                    {"year": int(item["date"]), "inflacion_anual": float(item["value"])}
+                )
         df = pd.DataFrame(rows)
         logger.info(f"Descargadas {len(df)} filas")
         return df
