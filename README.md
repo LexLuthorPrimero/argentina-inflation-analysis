@@ -1,4 +1,8 @@
-[![Open in Streamlit]https://argentina-inflation-analysis-gqbzvy2fjksctot5qd6vvd.streamlit.app/
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.56+-red.svg)](https://streamlit.io/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://argentina-inflation-analysis.streamlit.app)
+[![Coverage](https://img.shields.io/badge/coverage-91%25-brightgreen.svg)](badges/coverage.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # 📈 Análisis de Inflación en Argentina
 
