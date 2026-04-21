@@ -14,25 +14,20 @@ def main():
     df['date'] = pd.to_datetime(df['date'])
     logger.info(f"Cargados {len(df)} registros mensuales")
     
-    # Calcular inflación acumulada por año
+    # Calcular acumulado anual
     df['year'] = df['date'].dt.year
     anual = df.groupby('year')['inflacion_mensual'].sum().reset_index()
-    anual.rename(columns={'inflacion_mensual': 'inflacion_acumulada_anual'}, inplace=True)
     anual.to_csv("data/processed/inflacion_mensual_acumulada.csv", index=False)
     
     # Gráfico mensual
-    plt.figure(figsize=(12, 5))
-    plt.plot(df['date'], df['inflacion_mensual'], marker='.', linestyle='-', alpha=0.7)
-    plt.title("Inflación mensual Argentina (BCRA)")
+    plt.figure(figsize=(12,5))
+    plt.plot(df['date'], df['inflacion_mensual'], marker='.', alpha=0.7)
+    plt.title("Inflación mensual Argentina")
     plt.xlabel("Fecha")
     plt.ylabel("Variación mensual (%)")
     plt.grid(True, linestyle='--', alpha=0.5)
     plt.savefig("reports/inflacion_mensual.png")
-    logger.info("Gráfico mensual guardado en reports/inflacion_mensual.png")
-    
-    # Mostrar últimos 12 meses
-    print("\n=== Últimos 12 meses ===")
-    print(df.tail(12).to_string(index=False))
+    logger.info("Gráfico mensual guardado")
 
 if __name__ == "__main__":
     main()
