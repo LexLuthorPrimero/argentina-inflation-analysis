@@ -21,8 +21,25 @@ dependencies = [
     "pytest>=7.0.0",
     "tabulate>=0.9.0",
     "openpyxl>=3.0.0",
-    "streamlit>=1.25.0",      # <--- movido aquí
+    "streamlit>=1.25.0",
 ]
 
 [project.optional-dependencies]
 dev = ["black", "flake8", "pre-commit", "ruff", "pytest-cov"]
+
+[tool.ruff.lint]
+ignore = ["F401"]
+
+[tool.coverage.run]
+omit = [
+    "src/analysis/forecast.py",
+    "src/analysis/indicators.py",
+    "src/extract/bcra.py",
+    "src/load/database.py",
+    "src/load/saver.py",
+    "src/report/plots.py",
+    "src/report/tables.py",
+    "src/transform/clean.py",
+    "src/transform/harmonize.py",
+    "src/utils/dates.py"
+]
