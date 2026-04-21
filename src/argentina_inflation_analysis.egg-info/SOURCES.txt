@@ -28,6 +28,11 @@ src/utils/__init__.py
 src/utils/config.py
 src/utils/dates.py
 src/utils/logging.py
+tests/test_bcra.py
+tests/test_calculate.py
+tests/test_config.py
+tests/test_etl.py
 tests/test_extract.py
-tests/test_indicators.py
+tests/test_simple.py
 tests/test_transform.py
+tests/test_worldbank.py
