@@ -1,45 +1,42 @@
 import requests
 import pandas as pd
 from src.utils.logging import setup_logger
+from src.utils.config import get_bcra_token
 
 logger = setup_logger(__name__)
 
-
-def extract_inflation_bcra(start_year=2017):
+def extract_inflation_bcra(start_year: int = 2017) -> pd.DataFrame | None:
     """
-    Extrae inflación mensual del BCRA (IPC Nivel General - Base 2016=100)
-    Fuente: API de estadísticas del BCRA (variable 'IPCNG')
+    Extrae inflación mensual del BCRA a través de la API de estadisticasbcra.com.
+    Requiere token en .env (BCRA_API_TOKEN)
     """
-    # ID de la variable: IPC Nivel General (variación porcentual mensual)
-    # Se puede obtener del catálogo: https://www.bcra.gob.ar/Catalogo_de_datos/principales-variables.aspx
-    variable_id = "IPCNG"  # Por defecto; si no funciona, usaremos otra fuente
+    token = get_bcra_token()
+    if not token:
+        logger.error("No se encontró el token del BCRA. Configurar BCRA_API_TOKEN en .env")
+        return None
 
-    url = f"https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/{variable_id}"
+    url = "https://api.estadisticasbcra.com/inflacion_mensual_oficial"
+    headers = {"Authorization": f"BEARER {token}"}
 
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, headers=headers, timeout=15)
         response.raise_for_status()
         data = response.json()
 
-        if data.get("status") == 200:
-            registros = data.get("results", [])
-            df = pd.DataFrame(registros)
-            if not df.empty:
-                df.rename(
-                    columns={"fecha": "date", "valor": "inflacion_mensual"},
-                    inplace=True,
-                )
-                df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d")
-                df = df[df["date"].dt.year >= start_year]
-                logger.info(f"Descargadas {len(df)} filas mensuales del BCRA")
-                return df
+        if data:
+            rows = [{'date': item['d'], 'inflacion_mensual': item['v']} for item in data]
+            df = pd.DataFrame(rows)
+            df['date'] = pd.to_datetime(df['date'])
+            df = df[df['date'].dt.year >= start_year]
+            df = df.sort_values('date')
+            logger.info(f"Descargadas {len(df)} filas de inflación mensual desde estadisticasbcra.com.")
+            return df
         else:
-            logger.error(f"Error API BCRA: {data.get('message')}")
+            logger.warning("No se encontraron datos en la respuesta.")
             return None
     except Exception as e:
-        logger.error(f"Error al extraer del BCRA: {e}")
+        logger.error(f"Error al extraer datos de estadisticasbcra.com: {e}")
         return None
-
 
 if __name__ == "__main__":
     df = extract_inflation_bcra()
