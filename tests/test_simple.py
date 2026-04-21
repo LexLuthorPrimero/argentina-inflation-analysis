@@ -3,4 +3,5 @@ def test_imports():
     import requests
     import matplotlib
     import streamlit
+
     assert True  # Si llegó hasta acá, todas las importaciones funcionaron

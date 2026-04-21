@@ -27,6 +27,9 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["black", "flake8", "pre-commit", "ruff", "pytest-cov"]
 
+[tool.ruff]
+exclude = ["notebooks/*"]
+
 [tool.ruff.lint]
 ignore = ["F401"]
 
